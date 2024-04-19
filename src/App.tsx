@@ -16,7 +16,7 @@ const App: React.FC = () => {
           element: <Home />,
         },
         {
-          path: "/menu",
+          path: "/menu/:category_id",
           element: <Menu />,
         },
       ],

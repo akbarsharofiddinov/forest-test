@@ -3,34 +3,35 @@ import {
   useGetCategoryQuery,
   useGetProductsByCategoryIdQuery,
 } from "../../store/RTKQuery";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import LoaderComponent from "../../components/LoaderComponent/LoaderComponent";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { PrevBtn } from "../../components";
-import { setProducts } from "../../store/storeSlice/storeSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Menu: React.FC = () => {
-  const { category_id } = useAppSelector((state) => state.storeSlice);
+  const { category_id } = useParams();
 
   const {
     isError,
     isLoading,
     data: categoryDataResponse,
-  } = useGetCategoryQuery(category_id);
+  } = useGetCategoryQuery(Number.parseInt(category_id + ""));
 
-  const { products: dataProducts } = useAppSelector(
-    (state) => state.storeSlice
+  const navigate = useNavigate();
+
+  const { data: dataProducts } = useGetProductsByCategoryIdQuery(
+    Number.parseInt(category_id + "")
   );
 
-  const dipatch = useAppDispatch();
-
   useEffect(() => {
-    const { data } = useGetProductsByCategoryIdQuery(category_id);
-    dipatch(setProducts(data?.data!));
+    if (!category_id) {
+      navigate("/");
+    }
   }, [category_id]);
 
   return (
     <>
+      <PrevBtn />
       {categoryDataResponse?.data ? (
         <div className="container">
           <h1 className="menu-title">{categoryDataResponse?.data?.name}</h1>
@@ -46,7 +47,7 @@ const Menu: React.FC = () => {
             <div>error</div>
           ) : (
             <div className="products">
-              {dataProducts?.map((product, index) => (
+              {dataProducts?.data?.map((product, index) => (
                 <ProductItem data={product} isLoading={isLoading} key={index} />
               ))}
             </div>
@@ -61,7 +62,6 @@ const Menu: React.FC = () => {
             ))}
         </div>
       )}
-      <PrevBtn />
     </>
   );
 };
