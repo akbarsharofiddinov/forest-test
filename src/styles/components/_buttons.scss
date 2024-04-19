@@ -1,0 +1,24 @@
+.buttons {
+  background-color: #055050;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 1px;
+
+  position: absolute;
+  right: 50px;
+  bottom: 20px;
+
+  transition: background-color 0.2s;
+
+  &.prev-btn {
+    bottom: 84px;
+  }
+
+  &:hover {
+    background-color: #056060;
+  }
+}

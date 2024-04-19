@@ -1,0 +1,43 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+
+  &.active {
+    display: flex;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .modal-inner {
+    position: relative;
+    background-color: #333;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    .closeModal-btn {
+      font-size: 30px;
+      cursor: pointer;
+
+      position: absolute;
+      top: 0;
+      left: 92%;
+    }
+  }
+}
